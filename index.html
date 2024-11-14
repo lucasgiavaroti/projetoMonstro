@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/style/style.css" />
+    <title>Matador de Monstros</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <h1>Caçador de Monstros</h1>
+    <div id="app">
+      <section class="players">
+        <div>
+          <h2>Jogador</h2>
+          <img class="image" src="assets/image/helmet-svgrepo-com.svg" alt="" />
+          <div class="barra-hp">
+            <div :style="{ width: widthPlayer, backgroundColor: colorPlayer }" class="hp"></div>
+            <p class="hp-number">{{hpPlayer}}%</p>
+          </div>
+        </div>
+        <div>
+          <h2>Monstro</h2>
+          <img
+            class="image"
+            src="assets/image/monster-skull-svgrepo-com.svg"
+            alt=""
+          />
+          <div class="barra-hp">
+            <div :style="{ width: widthMonster, backgroundColor: colorMonster }" class="hp"></div>
+            <p class="hp-number">{{hpMonster}}%</p>
+        </div>
+      </section>
+      <section v-if="!running" class="section-botao">
+          <button class="botao-inicio" @click="iniciar()">INICIAR NOVO JOGO</button>
+      </section>
+      <section v-else class="section-botao">
+          <button @click="attack()" class="botao-atacar">ATAQUE</button>
+          <button @click="special()" class="botao-especial">ATAQUE ESPECIAL</button>
+          <button @click="cure()" class="botao-cura">CURA</button>
+          <button class="botao-encerrar" @click="encerrar()">ENCERRAR</button>
+      </section>
+      <section v-if="playerWin == 1" class="result">
+        <h2 style="color: green;">Parabéns, você venceu!</h2>
+      </section>
+      <section v-else-if="playerWin == 2" class="result">
+        <h2 style="color: red;">Você perdeu!</h2>
+      </section>
+      <section v-if="logs.length" class="register-log">
+        <u class="logs">
+          <li v-for="log in logs">{{log.text}}</li>
+        </u>
+      </section>
+      <div>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="assets/scripts/main.js"></script>
